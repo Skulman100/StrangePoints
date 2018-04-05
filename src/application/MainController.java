@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.control.Slider;
 import javafx.scene.canvas.Canvas;
 import javafx.event.ActionEvent;
 import simulation.PointSimulation;
@@ -21,14 +22,13 @@ public class MainController {
     private Canvas cvsPlayground;
 
     @FXML
-    public void initialize() {
-        ctx = cvsPlayground.getGraphicsContext2D();
-        pSim = new PointSimulation(ctx, 7, 500);
-    }
+    private Slider sldrCountOfAnchors;
 
     public void btnStartClicked(ActionEvent e) {
+        ctx = cvsPlayground.getGraphicsContext2D();
         if(thread == null) {
             Platform.runLater(() -> {
+                pSim = new PointSimulation(ctx, (int) sldrCountOfAnchors.getValue(), 500);
                 thread = new Thread(pSim);
                 thread.start();
             });
@@ -36,11 +36,9 @@ public class MainController {
             btnStart.setText("Stop");
         }
         else {
-            if(thread != null) {
-                pSim.setRunning(false);
-                thread = null;
-                btnStart.setText("Start");
-            }
+            pSim.setRunning(false);
+            thread = null;
+            btnStart.setText("Start");
         }
     }
 }
