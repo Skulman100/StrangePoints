@@ -15,7 +15,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("main.fxml"));
-        Scene scene = new Scene(root, 600,400);
+        Scene scene = new Scene(root, 1000,800);
 
         stage.setScene(scene);
         stage.setTitle("StrangePoints");
